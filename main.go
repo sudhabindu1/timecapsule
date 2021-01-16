@@ -19,5 +19,5 @@ func main() {
 	app.Post("/tc", handlers.CreateTimeCapsule)
 	app.Get("/tc/:ciphertext", handlers.GetTimeCapsule)
 
-	app.Listen(":8080")
+	app.Listen("0.0.0.0:8080")
 }
