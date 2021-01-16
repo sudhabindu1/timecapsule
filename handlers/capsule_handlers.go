@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"fmt"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -27,7 +28,13 @@ func CreateTimeCapsule(c *fiber.Ctx) error {
 		return fiber.ErrInternalServerError
 	}
 
-	return c.SendString(fmt.Sprintf("http://localhost:8080/tc/%s", cipherText))
+	baseUrl := "http://localhost:8080"
+	_, ok := os.LookupEnv("PORT")
+	if ok {
+		baseUrl = "https://timecapsul.herokuapp.com"
+	}
+
+	return c.SendString(fmt.Sprintf("%s/tc/%s", baseUrl, cipherText))
 }
 
 func GetTimeCapsule(c *fiber.Ctx) error {
