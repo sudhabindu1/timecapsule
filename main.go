@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"timecapsule/handlers"
@@ -19,5 +20,10 @@ func main() {
 	app.Post("/tc", handlers.CreateTimeCapsule)
 	app.Get("/tc/:ciphertext", handlers.GetTimeCapsule)
 
-	app.Listen("0.0.0.0:8080")
+	port, ok := os.LookupEnv("PORT")
+	if !ok {
+		port = "8080"
+	}
+
+	app.Listen(fmt.Sprintf(":%v", port))
 }
