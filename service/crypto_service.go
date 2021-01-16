@@ -12,10 +12,7 @@ import (
 )
 
 func Encrypt(plaintext string) (string, error) {
-	key, ok := os.LookupEnv("AES_KEY")
-	if !ok {
-		return "", errors.New("private key not set")
-	}
+	key := os.Getenv("AES_KEY")
 	keyB, _ := hex.DecodeString(key)
 	plaintextB := []byte(plaintext)
 

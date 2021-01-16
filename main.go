@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"os"
 	"timecapsule/handlers"
 
@@ -8,7 +9,10 @@ import (
 )
 
 func main() {
-	os.Setenv("AES_KEY", "64a46629c79692eaa20828ce6a1d90fa5e7a1011a68e18128aea8fddb7a5e018")
+	_, ok := os.LookupEnv("AES_KEY")
+	if !ok {
+		log.Fatalln("private key not set")
+	}
 	app := fiber.New()
 
 	app.Get("/", handlers.AppHandler)
